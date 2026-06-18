@@ -34,3 +34,13 @@ vim.keymap.set("n", "c<S-l>", "cw", { desc = "Change word forward" })
 
 vim.keymap.set("n", "d<S-h>", "db", { desc = "Delete word backward" })
 vim.keymap.set("n", "d<S-l>", "dw", { desc = "Delete word forward" })
+
+vim.keymap.set("n", "<leader>wh", "<Cmd>BufferLineCyclePrev<CR>", { desc = "Previous buffer" })
+vim.keymap.set("n", "<leader>wl", "<Cmd>BufferLineCycleNext<CR>", { desc = "Next buffer" })
+vim.keymap.set("n", "<leader>wq", function()
+    local current = vim.api.nvim_get_current_buf()
+    vim.cmd("BufferLineCyclePrev")
+    vim.cmd("bdelete " .. current)
+end, { desc = "Close buffer and jump to previous" })
+
+vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR><Esc>")
