@@ -6,7 +6,10 @@ return {
         local configs = require("nvim-treesitter.configs")
         configs.setup({
             highlight = { enable = true },
-            indent = { enable = true },
+            indent = {
+                enable = true,
+                disable = { "javascript", "javascriptreact" },
+            },
             ensure_installed = {
                 "lua", "tsx", "typescript", "javascript", "php",
             },

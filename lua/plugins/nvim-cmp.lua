@@ -5,7 +5,7 @@ return {
     opts = {
         keymap = {
             preset = 'default',
-            ['<CR>'] = { 'select_and_accept', 'fallback' },
+            ['<C-CR>'] = { 'select_and_accept', 'fallback' },
         },
         appearance = {
             nerd_font_variant = 'mono',

@@ -1,3 +1,4 @@
+
 return {
     {
         "rose-pine/neovim",
@@ -6,6 +7,7 @@ return {
         priority = 1000,
         config = function()
             require("rose-pine").setup({
+                disable_italics = true,
                 variant = "auto",
                 dark_variant = "main",
             })
@@ -28,7 +30,9 @@ return {
         dependencies = { "nvim-tree/nvim-web-devicons" },
         opts = {
             theme = "rose-pine",
-            globalstatus = true,
+            options = {
+                globalstatus = true,
+            },
         },
     },
 }
