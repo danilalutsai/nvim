@@ -36,7 +36,7 @@ vim.api.nvim_set_hl(0, "DiagnosticUnderlineError", {
     fg = "#eb6f92",
 })
 
-vim.opt.scrolloff = 8
+vim.opt.scrolloff = 6
 
 vim.api.nvim_create_user_command('Q', function(opts)
   local mod = vim.api.nvim_buf_get_option(0, 'modified')
