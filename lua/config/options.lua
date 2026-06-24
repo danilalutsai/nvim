@@ -9,6 +9,7 @@ vim.opt.expandtab = true  -- convert tabs to spaces
 
 vim.opt.clipboard = "unnamedplus" -- copies yank to clipboard
 
+
 vim.opt.autoindent = true
 -- vim.opt.smartindent = true
 -- vim.cmd("filetype plugin indent on")
@@ -58,6 +59,22 @@ vim.api.nvim_create_autocmd("ColorScheme", {
         val.bold = false
         pcall(vim.api.nvim_set_hl, 0, hl, val)
       end
+    end
+  end,
+})
+vim.api.nvim_create_autocmd({ "ColorScheme", "VimEnter", "WinEnter" }, {
+  callback = function()
+    local groups = {
+      "Normal",
+      "NormalNC",
+      "NormalFloat",
+      "FloatBorder",
+      "EndOfBuffer",
+      "SignColumn",
+    }
+
+    for _, group in ipairs(groups) do
+      vim.api.nvim_set_hl(0, group, { bg = "none" })
     end
   end,
 })

@@ -1,15 +1,16 @@
 return {
-  "nvim-telescope/telescope.nvim", tag="0.1.8",
-  dependencies = { 'nvim-lua/plenary.nvim' },
+  "nvim-telescope/telescope.nvim",
+  keys = {
+    { "<leader>ff", function() require("telescope.builtin").find_files() end, desc = "Find files" },
+    { "<leader>fb", function() require("telescope.builtin").buffers() end, desc = "Find buffers" },
+    { "<leader>fg", function() require("telescope.builtin").live_grep() end, desc = "Live grep" },
+    { "<leader>fh", function() require("telescope.builtin").help_tags() end, desc = "Find help" },
+  },
   config = function()
-    local builtin = require("telescope.builtin")
-    vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find files' })
-    vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live grep' })
-    vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
-    vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
-
-    vim.api.nvim_set_hl(0, "TelescopeNormal", { bg = "none" })
-    vim.api.nvim_set_hl(0, "TelescopeBorder", { bg = "none" })
-  end
+    require("telescope").setup({
+      defaults = {
+        winblend = 20,
+      },
+    })
+  end,
 }
-
