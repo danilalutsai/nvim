@@ -1,3 +1,11 @@
+local function pill(component, opts)
+  return vim.tbl_extend("force", {
+    component,
+    separator = { left = "", right = "" },
+    padding = { left = 1, right = 1 },
+  }, opts or {})
+end
+
 return {
   {
     "rose-pine/neovim",
@@ -39,6 +47,8 @@ return {
           "FloatBorder",
           "SignColumn",
           "EndOfBuffer",
+          "StatusLine",
+          "StatusLineNC",
 
           "TelescopeNormal",
           "TelescopeBorder",
@@ -101,9 +111,66 @@ return {
     "nvim-lualine/lualine.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     opts = {
-      theme = "rose-pine",
       options = {
         globalstatus = true,
+        component_separators = " ",
+        section_separators = "",
+        theme = {
+          normal = {
+            a = { fg = "#191724", bg = "#8579a6", gui = "bold" },
+            b = { fg = "#b0acbc", bg = "#26233a" },
+            c = { fg = "#b0acbc", bg = "NONE" },
+          },
+          insert = {
+            a = { fg = "#191724", bg = "#7cae7c", gui = "bold" },
+            b = { fg = "#b0acbc", bg = "#26233a" },
+            c = { fg = "#b0acbc", bg = "NONE" },
+          },
+          visual = {
+            a = { fg = "#191724", bg = "#b59191", gui = "bold" },
+            b = { fg = "#b0acbc", bg = "#26233a" },
+            c = { fg = "#b0acbc", bg = "NONE" },
+          },
+          replace = {
+            a = { fg = "#191724", bg = "#c97c7c", gui = "bold" },
+            b = { fg = "#b0acbc", bg = "#26233a" },
+            c = { fg = "#b0acbc", bg = "NONE" },
+          },
+          command = {
+            a = { fg = "#191724", bg = "#a89780", gui = "bold" },
+            b = { fg = "#b0acbc", bg = "#26233a" },
+            c = { fg = "#b0acbc", bg = "NONE" },
+          },
+          inactive = {
+            a = { fg = "#7a7686", bg = "NONE" },
+            b = { fg = "#7a7686", bg = "NONE" },
+            c = { fg = "#7a7686", bg = "NONE" },
+          },
+        },
+      },
+      sections = {
+        lualine_a = {
+          pill("mode"),
+        },
+        lualine_b = {
+          pill("branch"),
+          pill("diff"),
+          pill("diagnostics"),
+        },
+        lualine_c = {
+          pill("filename", { color = { fg = "#b0acbc", bg = "#26233a" } }),
+        },
+        lualine_x = {
+          pill("encoding", { color = { fg = "#b0acbc", bg = "#26233a" } }),
+          pill("fileformat", { color = { fg = "#b0acbc", bg = "#26233a" } }),
+          pill("filetype", { color = { fg = "#b0acbc", bg = "#26233a" } }),
+        },
+        lualine_y = {
+          pill("progress"),
+        },
+        lualine_z = {
+          pill("location"),
+        },
       },
     },
   },
