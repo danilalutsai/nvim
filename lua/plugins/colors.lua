@@ -72,7 +72,7 @@ return {
         vim.api.nvim_set_hl(0, "MatchParen", {
           bg = "NONE",
           ctermbg = "NONE",
-          fg = "#b0acbc",
+          fg = "#ffee93",
           bold = false,
           underline = false,
         })
