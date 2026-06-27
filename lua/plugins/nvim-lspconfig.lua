@@ -6,15 +6,14 @@ return {
     },
 
     config = function()
-        require("mason").setup()
-
-        require("mason-lspconfig").setup({
-            ensure_installed = {
-                "vtsls",
-            },
-        })
-
         vim.lsp.enable({
+            "lua_ls",
+            "html",
+            "cssls",
+            "jsonls",
+            "emmet_language_server",
+            "bashls",
+            "pyright",
             "vtsls",
         })
 

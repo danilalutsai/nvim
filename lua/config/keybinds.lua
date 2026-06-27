@@ -46,20 +46,9 @@ vim.keymap.set("n", "c<S-l>", "cw", { desc = "Change word forward" })
 vim.keymap.set("n", "d<S-h>", "db", { desc = "Delete word backward" })
 vim.keymap.set("n", "d<S-l>", "dw", { desc = "Delete word forward" })
 
--- -- Jump to next open buffer and to previous open buffer
--- vim.keymap.set("n", "<leader>wh", "<Cmd>BufferLineCyclePrev<CR>", { desc = "Previous buffer" })
--- vim.keymap.set("n", "<leader>wl", "<Cmd>BufferLineCycleNext<CR>", { desc = "Next buffer" })
---
--- -- Close open buffer
--- vim.keymap.set("n", "<leader>wq", function()
---     local current = vim.api.nvim_get_current_buf()
---     vim.cmd("BufferLineCyclePrev")
---     vim.cmd("bdelete " .. current)
--- end, { desc = "Close buffer and jump to previous" })
-
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR><Esc>")
 
--- Replaces all selected elements with new enterd text
+-- Replaces all selected elements with new entered text
 vim.keymap.set("n", "<leader>r", function()
   vim.ui.input({ prompt = "Replace with: " }, function(replacement)
     if replacement then
@@ -72,17 +61,15 @@ end, { desc = "Replace all matches of last search" })
 -- Jumps to the end of the line
 vim.keymap.set({"n", "i", "v"}, "<C-l>", "<End>", { desc = "Move to end of line" })
 
--- Jumps to the first character of the line and 
--- then to the beggining of the line
-    local ctrl_h_state = {
+-- Jumps to the first character of the line and then to the beginning of the line.
+local ctrl_h_state = {
   waiting_for_beginning = false,
   bufnr = nil,
   line = nil,
   first_col = nil,
 }
 
--- Jumps to the first non-empty character of the line then to the 
--- beggining of the line in normal mode.
+-- Jumps to the first non-empty character of the line then to the beginning of the line in normal mode.
 vim.keymap.set("n", "<C-h>", function()
   local bufnr = vim.api.nvim_get_current_buf()
   local cursor = vim.api.nvim_win_get_cursor(0)
@@ -121,8 +108,7 @@ end, {
   desc = "Jump to first non-empty character, then beginning of line",
 })
 
--- Jumps to the first non empty character then to the 
--- beggining of the line in visual mode
+-- Jumps to the first non-empty character then to the beginning of the line in visual mode.
 vim.keymap.set("v", "<C-h>", function()
   local bufnr = vim.api.nvim_get_current_buf()
   local cursor = vim.api.nvim_win_get_cursor(0)
