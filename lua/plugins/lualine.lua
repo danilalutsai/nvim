@@ -1,7 +1,7 @@
-local function pill(component, opts)
+local function block(component, opts)
   return vim.tbl_extend("force", {
     component,
-    separator = { left = "", right = "" },
+    separator = "",
     padding = { left = 1, right = 1 },
   }, opts or {})
 end
@@ -19,57 +19,57 @@ return {
           normal = {
             a = { fg = "#1e1e2e", bg = "#cba6f7", gui = "bold" },
             b = { fg = "#cdd6f4", bg = "#313244" },
-            c = { fg = "#cdd6f4", bg = "NONE" },
+            c = { fg = "#cdd6f4", bg = "#313244" },
           },
           insert = {
             a = { fg = "#1e1e2e", bg = "#a6e3a1", gui = "bold" },
             b = { fg = "#cdd6f4", bg = "#313244" },
-            c = { fg = "#cdd6f4", bg = "NONE" },
+            c = { fg = "#cdd6f4", bg = "#313244" },
           },
           visual = {
             a = { fg = "#1e1e2e", bg = "#f5c2e7", gui = "bold" },
             b = { fg = "#cdd6f4", bg = "#313244" },
-            c = { fg = "#cdd6f4", bg = "NONE" },
+            c = { fg = "#cdd6f4", bg = "#313244" },
           },
           replace = {
             a = { fg = "#1e1e2e", bg = "#f38ba8", gui = "bold" },
             b = { fg = "#cdd6f4", bg = "#313244" },
-            c = { fg = "#cdd6f4", bg = "NONE" },
+            c = { fg = "#cdd6f4", bg = "#313244" },
           },
           command = {
             a = { fg = "#1e1e2e", bg = "#f9e2af", gui = "bold" },
             b = { fg = "#cdd6f4", bg = "#313244" },
-            c = { fg = "#cdd6f4", bg = "NONE" },
+            c = { fg = "#cdd6f4", bg = "#313244" },
           },
           inactive = {
-            a = { fg = "#6c7086", bg = "NONE" },
-            b = { fg = "#6c7086", bg = "NONE" },
-            c = { fg = "#6c7086", bg = "NONE" },
+            a = { fg = "#bac2de", bg = "#313244" },
+            b = { fg = "#bac2de", bg = "#313244" },
+            c = { fg = "#bac2de", bg = "#313244" },
           },
         },
       },
       sections = {
         lualine_a = {
-          pill("mode"),
+          block("mode"),
         },
         lualine_b = {
-          pill("branch"),
-          pill("diff"),
-          pill("diagnostics"),
+          block("branch"),
+          block("diff"),
+          block("diagnostics"),
         },
         lualine_c = {
-          pill("filename", { color = { fg = "#cdd6f4", bg = "#313244" } }),
+          block("filename", { color = { fg = "#cdd6f4", bg = "#313244" } }),
         },
         lualine_x = {
-          pill("encoding", { color = { fg = "#cdd6f4", bg = "#313244" } }),
-          pill("fileformat", { color = { fg = "#cdd6f4", bg = "#313244" } }),
-          pill("filetype", { color = { fg = "#cdd6f4", bg = "#313244" } }),
+          block("encoding", { color = { fg = "#cdd6f4", bg = "#313244" } }),
+          block("fileformat", { color = { fg = "#cdd6f4", bg = "#313244" } }),
+          block("filetype", { color = { fg = "#cdd6f4", bg = "#313244" } }),
         },
         lualine_y = {
-          pill("progress"),
+          block("progress"),
         },
         lualine_z = {
-          pill("location"),
+          block("location"),
         },
       },
     },

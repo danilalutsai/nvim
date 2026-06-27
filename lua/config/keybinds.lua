@@ -2,9 +2,9 @@
 vim.g.mapleader = " "
 vim.keymap.set("n", "<leader>cd", vim.cmd.Ex)
 vim.api.nvim_create_autocmd("FileType", {
-    pattern = "netrw",
-    callback = function()
-        vim.keymap.set("n", "h", "-", { buffer = true, remap = true, desc = "Go up directory (netrw)" })
+  pattern = "netrw",
+  callback = function()
+    vim.keymap.set("n", "h", "-", { buffer = true, remap = true, desc = "Go up directory (netrw)" })
   end,
 })
 vim.keymap.set("n", "<leader>qcd", ":close<CR><C-w>l", { desc = "Close netrw and move to opened buffer" })
@@ -80,11 +80,11 @@ vim.keymap.set("n", "<C-h>", function()
   end
 
   local should_jump_to_beginning =
-    ctrl_h_state.waiting_for_beginning
-    and ctrl_h_state.bufnr == bufnr
-    and ctrl_h_state.line == line_nr
-    and ctrl_h_state.first_col == first_col
-    and current_col == first_col
+  ctrl_h_state.waiting_for_beginning
+  and ctrl_h_state.bufnr == bufnr
+  and ctrl_h_state.line == line_nr
+  and ctrl_h_state.first_col == first_col
+  and current_col == first_col
 
   if should_jump_to_beginning then
     vim.api.nvim_win_set_cursor(0, { line_nr, 0 })
@@ -97,10 +97,10 @@ vim.keymap.set("n", "<C-h>", function()
     ctrl_h_state.first_col = first_col
   end
 end, {
-  noremap = true,
-  silent = true,
-  desc = "Jump to first non-empty character, then beginning of line",
-})
+    noremap = true,
+    silent = true,
+    desc = "Jump to first non-empty character, then beginning of line",
+  })
 
 -- Jumps to the first non-empty character then to the beginning of the line in visual mode.
 vim.keymap.set("v", "<C-h>", function()
@@ -119,11 +119,11 @@ vim.keymap.set("v", "<C-h>", function()
   end
 
   local should_jump_to_beginning =
-    ctrl_h_state.waiting_for_beginning
-    and ctrl_h_state.bufnr == bufnr
-    and ctrl_h_state.line == line_nr
-    and ctrl_h_state.first_col == first_col
-    and current_col == first_col
+  ctrl_h_state.waiting_for_beginning
+  and ctrl_h_state.bufnr == bufnr
+  and ctrl_h_state.line == line_nr
+  and ctrl_h_state.first_col == first_col
+  and current_col == first_col
 
   if should_jump_to_beginning then
     vim.api.nvim_win_set_cursor(0, { line_nr, 0 })
@@ -136,10 +136,10 @@ vim.keymap.set("v", "<C-h>", function()
     ctrl_h_state.first_col = first_col
   end
 end, {
-  noremap = true,
-  silent = true,
-  desc = "Jump to first non-empty character, then beginning of line",
-})
+    noremap = true,
+    silent = true,
+    desc = "Jump to first non-empty character, then beginning of line",
+  })
 
 
 
