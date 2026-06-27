@@ -1,11 +1,18 @@
 require('config.options')
 require('config.keybinds')
 require('config.lazy')
+require('config.nvim-notify')
 
 
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = "netrw",
+  pattern = {
+    "netrw",
+    "notify",
+    "lazy",
+    "mason",
+  },
   callback = function()
+    vim.treesitter.stop()
     vim.keymap.set("n", "a", "%", { buffer = true, remap = true, desc = "Create file (netrw)" })
     vim.keymap.set("n", "A", function()
       local dirname = vim.fn.input("Create directory: ")

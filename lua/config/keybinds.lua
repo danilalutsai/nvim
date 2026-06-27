@@ -20,19 +20,13 @@ vim.keymap.set("n", "<S-Tab>", "<<", { desc = "Un-indent line", noremap = true, 
 -- Re-undo
 vim.keymap.set("n", "U", "<C-r>", { desc = "Redo" })
 
--- Moves back or forward one word
-vim.keymap.set({"n", "v"}, "<S-h>", "b", { desc = "Move back one word" })
-vim.keymap.set({"n", "v"}, "<S-l>", "w", { desc = "Move forward one word" })
+-- -- Moves back or forward one word
+-- vim.keymap.set({"n", "v"}, "<S-h>", "b", { desc = "Move back one word" })
+-- vim.keymap.set({"n", "v"}, "<S-l>", "w", { desc = "Move forward one word" })
 
--- Goes to the first word of the next paragraph
-vim.keymap.set({"n", "v"}, "<C-j>", "}w", { desc = "Go to first word of next paragraph" })
-
--- Previous or next paragraph
-vim.keymap.set({"n", "v"}, "<C-k>", function()
-  vim.cmd("normal! {")
-  vim.cmd("normal! {")
-  vim.cmd("normal! w")
-end, { desc = "Go to first word of previous paragraph" })
+-- Move half page down or up
+vim.keymap.set({ "n", "v" }, "<C-j>", "<C-d>", { desc = "Half page down", noremap = true, silent = true })
+vim.keymap.set({ "n", "v" }, "<C-k>", "<C-u>", { desc = "Half page up", noremap = true, silent = true })
 
 -- Extends selection back or forward one word
 vim.keymap.set("v", "<S-h>", "b", { desc = "Extend selection back one word" })

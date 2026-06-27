@@ -41,7 +41,6 @@ return {
           "TelescopeResultsTitle",
           "TelescopePreviewNormal",
           "TelescopePreviewTitle",
-          "TelescopeSelection",
         }
 
         for _, group in ipairs(transparent_groups) do
@@ -53,6 +52,7 @@ return {
         vim.api.nvim_set_hl(0, "LineNrBelow", { fg = "#6c7086", bg = "NONE" })
         vim.api.nvim_set_hl(0, "CursorLine", { bg = "#313244" })
         vim.api.nvim_set_hl(0, "CursorLineNr", { fg = "#fab387", bg = "NONE", bold = true })
+        vim.api.nvim_set_hl(0, "TelescopeSelection", { fg = "#cdd6f4", bg = "#313244" })
 
         vim.api.nvim_set_hl(0, "MatchParen", {
           bg = "NONE",
