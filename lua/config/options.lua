@@ -103,4 +103,4 @@ end, { bang = true })
 vim.cmd('cnoreabbrev <expr> q ((getcmdtype() == ":" && getcmdpos() == 3) ? "Q" : "q")')
 vim.cmd('cnoreabbrev <expr> q! ((getcmdtype() == ":" && getcmdpos() == 4) ? "Q!" : "q!")')
 
-vim.opt.guicursor = "n:block,i:block-blinkon50-blinkoff50"
+vim.opt.guicursor = "n:block,i:ver25-blinkon50-blinkoff50"
