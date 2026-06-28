@@ -20,17 +20,17 @@ vim.keymap.set("n", "<S-Tab>", "<<", { desc = "Un-indent line", noremap = true, 
 -- Re-undo
 vim.keymap.set("n", "U", "<C-r>", { desc = "Redo" })
 
--- -- Moves back or forward one word
--- vim.keymap.set({"n", "v"}, "<S-h>", "b", { desc = "Move back one word" })
--- vim.keymap.set({"n", "v"}, "<S-l>", "w", { desc = "Move forward one word" })
+-- Moves back or forward one word
+vim.keymap.set({ "n", "v" }, "<S-h>", "b", { desc = "Move back one word" })
+vim.keymap.set({ "n", "v" }, "<S-l>", "w", { desc = "Move forward one word" })
 
 -- Move half page down or up
 vim.keymap.set({ "n", "v" }, "<C-j>", "<C-d>", { desc = "Half page down", noremap = true, silent = true })
 vim.keymap.set({ "n", "v" }, "<C-k>", "<C-u>", { desc = "Half page up", noremap = true, silent = true })
 
--- Extends selection back or forward one word
-vim.keymap.set("v", "<S-h>", "b", { desc = "Extend selection back one word" })
-vim.keymap.set("v", "<S-l>", "w", { desc = "Extend selection forward one word" })
+-- Move full page down or up
+vim.keymap.set({ "n", "v" }, "<S-j>", "<C-f>", { desc = "Full page down", noremap = true, silent = true })
+vim.keymap.set({ "n", "v" }, "<S-k>", "<C-b>", { desc = "Full page up", noremap = true, silent = true })
 
 -- Changes next or previous word
 vim.keymap.set("n", "c<S-h>", "cb", { desc = "Change word backward" })
@@ -187,6 +187,15 @@ vim.keymap.set("n", "<C-S-j>", function() move_current_line(1) end, { desc = "Mo
 vim.keymap.set("v", "<C-S-k>", function() move_selected_lines(-1) end, { desc = "Move selection up" })
 vim.keymap.set("v", "<C-S-j>", function() move_selected_lines(1) end, { desc = "Move selection down" })
 
-vim.keymap.set("n", "<leader>wh", ":bprev<CR>", { desc = "Previous buffer" })
-vim.keymap.set("n", "<leader>wl", ":bnext<CR>", { desc = "Next buffer" })
-vim.keymap.set("n", "<leader>wq", ":bdelete<CR>", { desc = "Close current buffer" })
+vim.keymap.set("n", "<leader>wp", ":bprev<CR>", { desc = "Previous buffer" })
+vim.keymap.set("n", "<leader>wn", ":bnext<CR>", { desc = "Next buffer" })
+vim.keymap.set("n", "<leader>wq", ":Q<CR>", { desc = "Close current buffer" })
+vim.keymap.set("n", "<leader>wh", "<C-w>h", { desc = "Move to left window" })
+vim.keymap.set("n", "<leader>wj", "<C-w>j", { desc = "Move to lower window" })
+vim.keymap.set("n", "<leader>wk", "<C-w>k", { desc = "Move to upper window" })
+vim.keymap.set("n", "<leader>wl", "<C-w>l", { desc = "Move to right window" })
+vim.keymap.set("n", "<leader>wH", "10<C-w><", { desc = "Decrease window width" })
+vim.keymap.set("n", "<leader>wJ", "10<C-w>-", { desc = "Decrease window height" })
+vim.keymap.set("n", "<leader>wK", "10<C-w>+", { desc = "Increase window height" })
+vim.keymap.set("n", "<leader>wL", "10<C-w>>", { desc = "Increase window width" })
+vim.keymap.set("n", "<leader>wx", "<C-w>c", { desc = "Close current window" })

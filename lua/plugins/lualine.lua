@@ -6,6 +6,28 @@ local function block(component, opts)
   }, opts or {})
 end
 
+local bg = "#313244"
+local bar_bg = "#313244"
+local fg = "#cdd6f4"
+local filetype_fg = "#1e1e2e"
+
+local function filetype_with_icon()
+  local filetype = vim.bo.filetype
+
+  if filetype == "" then
+    return ""
+  end
+
+  local ok, devicons = pcall(require, "nvim-web-devicons")
+  if not ok then
+    return filetype
+  end
+
+  local icon = devicons.get_icon_by_filetype(filetype, { default = true })
+
+  return icon .. " " .. filetype
+end
+
 return {
   {
     "nvim-lualine/lualine.nvim",
@@ -17,34 +39,34 @@ return {
         section_separators = "",
         theme = {
           normal = {
-            a = { fg = "#11111b", bg = "#89b4fa", gui = "bold" },
-            b = { fg = "#89b4fa", bg = "#181825" },
-            c = { fg = "#cdd6f4", bg = "#181825" },
+            a = { fg = "#1e1e2e", bg = "#cba6f7", gui = "bold" },
+            b = { fg = fg, bg = bar_bg },
+            c = { fg = fg, bg = bar_bg },
           },
           insert = {
             a = { fg = "#1e1e2e", bg = "#a6e3a1", gui = "bold" },
-            b = { fg = "#89b4fa", bg = "#181825" },
-            c = { fg = "#cdd6f4", bg = "#181825" },
+            b = { fg = fg, bg = bar_bg },
+            c = { fg = fg, bg = bar_bg },
           },
           visual = {
             a = { fg = "#1e1e2e", bg = "#fab387", gui = "bold" },
-            b = { fg = "#89b4fa", bg = "#181825" },
-            c = { fg = "#cdd6f4", bg = "#181825" },
+            b = { fg = fg, bg = bar_bg },
+            c = { fg = fg, bg = bar_bg },
           },
           replace = {
             a = { fg = "#1e1e2e", bg = "#f38ba8", gui = "bold" },
-            b = { fg = "#89b4fa", bg = "#181825" },
-            c = { fg = "#cdd6f4", bg = "#181825" },
+            b = { fg = fg, bg = bar_bg },
+            c = { fg = fg, bg = bar_bg },
           },
           command = {
             a = { fg = "#1e1e2e", bg = "#f9e2af", gui = "bold" },
-            b = { fg = "#89b4fa", bg = "#181825" },
-            c = { fg = "#cdd6f4", bg = "#181825" },
+            b = { fg = fg, bg = bar_bg },
+            c = { fg = fg, bg = bar_bg },
           },
           inactive = {
-            a = { fg = "#6c7086", bg = "#11111b" },
-            b = { fg = "#6c7086", bg = "#11111b" },
-            c = { fg = "#6c7086", bg = "#11111b" },
+            a = { fg = "#6c7086", bg = bar_bg },
+            b = { fg = "#6c7086", bg = bar_bg },
+            c = { fg = "#6c7086", bg = bar_bg },
           },
         },
       },
@@ -53,23 +75,33 @@ return {
           block("mode"),
         },
         lualine_b = {
-          block("branch"),
-          block("diff"),
-          block("diagnostics"),
+          block("diagnostics", { color = { fg = fg, bg = bg } }),
         },
         lualine_c = {
-          block("filename", { color = { fg = "#cdd6f4", bg = "#181825" } }),
+          block("buffers", {
+            mode = 2,
+            buffers_color = {
+              active = { fg = "#1e1e2e", bg = "#fab387", gui = "bold" },
+              inactive = { fg = fg, bg = bg },
+            },
+          }),
         },
         lualine_x = {
-          block("encoding", { color = { fg = "#89b4fa", bg = "#181825" } }),
-          block("fileformat", { color = { fg = "#89b4fa", bg = "#181825" } }),
-          block("filetype", { color = { fg = "#89b4fa", bg = "#181825" } }),
+          block("encoding", { color = { fg = fg, bg = bg } }),
+          block("fileformat", { color = { fg = fg, bg = bg } }),
+          block("searchcount", { color = { fg = fg, bg = bg } }),
+          block("filesize", { color = { fg = fg, bg = bg } }),
+          block("branch", { color = { fg = fg, bg = bg } }),
+          block("diff", { color = { fg = fg, bg = bg } }),
+          block("selectioncount", { color = { fg = fg, bg = bg } }),
+          block("diagnostics", { color = { fg = fg, bg = bg } }),
+          block(filetype_with_icon, { color = { fg = filetype_fg, bg = "#89b4fa", gui = "bold" } }),
         },
         lualine_y = {
-          block("progress"),
+          block("progress", { color = { fg = "#1e1e2e", bg = "#a6e3a1", gui = "bold" } }),
         },
         lualine_z = {
-          block("location"),
+          block("location", { color = { fg = "#1e1e2e", bg = "#cba6f7", gui = "bold" } }),
         },
       },
     },
