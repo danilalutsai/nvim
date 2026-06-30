@@ -6,11 +6,6 @@ local function block(component, opts)
   }, opts or {})
 end
 
-local bg = "#313244"
-local bar_bg = "#313244"
-local fg = "#cdd6f4"
-local filetype_fg = "#1e1e2e"
-
 local function filetype_with_icon()
   local filetype = vim.bo.filetype
 
@@ -28,82 +23,133 @@ local function filetype_with_icon()
   return icon .. " " .. filetype
 end
 
+local function current_filename()
+  local path = vim.fn.expand("%:p")
+
+  if path == "" then
+    path = "[No Name]"
+  else
+    local filename = vim.fn.fnamemodify(path, ":t")
+    local directory = vim.fn.fnamemodify(vim.fn.fnamemodify(path, ":h"), ":~:.")
+    local folders = vim.split(directory, "/", { trimempty = true })
+    local first_folder = math.max(#folders - 2, 1)
+    local parts = {}
+
+    for index = first_folder, #folders do
+      table.insert(parts, folders[index])
+    end
+
+    table.insert(parts, filename)
+    path = table.concat(parts, "/")
+  end
+
+  if vim.bo.modified then
+    return path .. " [+]"
+  end
+
+  return path
+end
+
+local function color_from_highlight(group, key, fallback)
+  local ok, highlight = pcall(vim.api.nvim_get_hl, 0, { name = group, link = false })
+
+  if not ok or not highlight[key] then
+    return fallback
+  end
+
+  return string.format("#%06x", highlight[key])
+end
+
+local function current_colors()
+  return {
+    base = color_from_highlight("Normal", "bg", "#232136"),
+    surface = color_from_highlight("CursorLine", "bg", "#2a273f"),
+    status_bg = "#393552",
+    muted = color_from_highlight("Comment", "fg", "#6e6a86"),
+    text = "#e0def4",
+    love = color_from_highlight("DiagnosticError", "fg", "#eb6f92"),
+    gold = color_from_highlight("DiagnosticWarn", "fg", "#f6c177"),
+    rose = color_from_highlight("Special", "fg", "#ea9a97"),
+    pine = "#3e8fb0",
+    foam = color_from_highlight("Function", "fg", "#9ccfd8"),
+    iris = color_from_highlight("Statement", "fg", "#c4a7e7"),
+  }
+end
+
 return {
   {
     "nvim-lualine/lualine.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
-    opts = {
-      options = {
-        globalstatus = true,
-        component_separators = " ",
-        section_separators = "",
-        theme = {
-          normal = {
-            a = { fg = "#1e1e2e", bg = "#cba6f7", gui = "bold" },
-            b = { fg = fg, bg = bar_bg },
-            c = { fg = fg, bg = bar_bg },
-          },
-          insert = {
-            a = { fg = "#1e1e2e", bg = "#a6e3a1", gui = "bold" },
-            b = { fg = fg, bg = bar_bg },
-            c = { fg = fg, bg = bar_bg },
-          },
-          visual = {
-            a = { fg = "#1e1e2e", bg = "#fab387", gui = "bold" },
-            b = { fg = fg, bg = bar_bg },
-            c = { fg = fg, bg = bar_bg },
-          },
-          replace = {
-            a = { fg = "#1e1e2e", bg = "#f38ba8", gui = "bold" },
-            b = { fg = fg, bg = bar_bg },
-            c = { fg = fg, bg = bar_bg },
-          },
-          command = {
-            a = { fg = "#1e1e2e", bg = "#f9e2af", gui = "bold" },
-            b = { fg = fg, bg = bar_bg },
-            c = { fg = fg, bg = bar_bg },
-          },
-          inactive = {
-            a = { fg = "#6c7086", bg = bar_bg },
-            b = { fg = "#6c7086", bg = bar_bg },
-            c = { fg = "#6c7086", bg = bar_bg },
-          },
-        },
-      },
-      sections = {
-        lualine_a = {
-          block("mode"),
-        },
-        lualine_b = {
-          block("diagnostics", { color = { fg = fg, bg = bg } }),
-        },
-        lualine_c = {
-          block("buffers", {
-            mode = 2,
-            buffers_color = {
-              active = { fg = "#1e1e2e", bg = "#fab387", gui = "bold" },
-              inactive = { fg = fg, bg = bg },
+    config = function()
+      local function setup_lualine()
+        local colors = current_colors()
+
+        require("lualine").setup({
+          options = {
+            globalstatus = true,
+            component_separators = " ",
+            section_separators = "",
+            theme = {
+              normal = {
+                a = { fg = colors.text, bg = colors.status_bg },
+                b = { fg = colors.text, bg = colors.status_bg },
+                c = { fg = colors.text, bg = colors.status_bg },
+              },
+              insert = {
+                a = { fg = colors.text, bg = colors.status_bg },
+                b = { fg = colors.text, bg = colors.status_bg },
+                c = { fg = colors.text, bg = colors.status_bg },
+              },
+              visual = {
+                a = { fg = colors.text, bg = colors.status_bg },
+                b = { fg = colors.text, bg = colors.status_bg },
+                c = { fg = colors.text, bg = colors.status_bg },
+              },
+              replace = {
+                a = { fg = colors.text, bg = colors.status_bg },
+                b = { fg = colors.text, bg = colors.status_bg },
+                c = { fg = colors.text, bg = colors.status_bg },
+              },
+              command = {
+                a = { fg = colors.text, bg = colors.status_bg },
+                b = { fg = colors.text, bg = colors.status_bg },
+                c = { fg = colors.text, bg = colors.status_bg },
+              },
+              inactive = {
+                a = { fg = colors.muted, bg = colors.status_bg },
+                b = { fg = colors.muted, bg = colors.status_bg },
+                c = { fg = colors.muted, bg = colors.status_bg },
+              },
             },
-          }),
-        },
-        lualine_x = {
-          block("encoding", { color = { fg = fg, bg = bg } }),
-          block("fileformat", { color = { fg = fg, bg = bg } }),
-          block("searchcount", { color = { fg = fg, bg = bg } }),
-          block("filesize", { color = { fg = fg, bg = bg } }),
-          block("branch", { color = { fg = fg, bg = bg } }),
-          block("diff", { color = { fg = fg, bg = bg } }),
-          block("selectioncount", { color = { fg = fg, bg = bg } }),
-          block("diagnostics", { color = { fg = fg, bg = bg } }),
-          block(filetype_with_icon, { color = { fg = filetype_fg, bg = "#89b4fa", gui = "bold" } }),
-        },
-        lualine_y = {
-          block("progress", { color = { fg = "#1e1e2e", bg = "#a6e3a1", gui = "bold" } }),
-        },
-        lualine_z = {
-          block("location", { color = { fg = "#1e1e2e", bg = "#cba6f7", gui = "bold" } }),
-        },
-      },
-    },
+          },
+          sections = {
+            lualine_a = {
+              block(current_filename, { color = { fg = colors.text, bg = colors.status_bg, bold = true } }),
+            },
+            lualine_b = {
+              block("diagnostics"),
+            },
+            lualine_c = {},
+            lualine_x = {
+              block("branch"),
+              block("diff"),
+              block(filetype_with_icon),
+            },
+            lualine_y = {},
+            lualine_z = {
+              block("location", { color = { fg = colors.text, bg = colors.status_bg } }),
+            },
+          },
+        })
+      end
+
+      setup_lualine()
+
+      vim.api.nvim_create_autocmd("ColorScheme", {
+        callback = function()
+          vim.schedule(setup_lualine)
+        end,
+      })
+    end,
   },
 }

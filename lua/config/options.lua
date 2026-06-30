@@ -3,7 +3,7 @@ vim.opt.cursorline = true
 vim.opt.cursorlineopt = "both"
 vim.opt.relativenumber = true
 vim.opt.numberwidth = 4
-local statuscolumn = "%{v:virtnum == 0 ? printf('%' .. &numberwidth .. 's', v:relnum == 0 ? v:lnum : v:relnum) : repeat(' ', &numberwidth)}%s"
+local statuscolumn = "%{v:virtnum == 0 ? printf(v:relnum == 0 ? '%-' .. &numberwidth .. 's' : '%' .. &numberwidth .. 's', v:relnum == 0 ? v:lnum : v:relnum) : repeat(' ', &numberwidth)}%s"
 local padded_statuscolumn = statuscolumn .. " "
 vim.opt.statuscolumn = statuscolumn
 vim.opt.termguicolors = true
@@ -16,12 +16,6 @@ local function sync_window_options()
     vim.opt_local.number = false
     vim.opt_local.relativenumber = false
     vim.opt_local.statuscolumn = ""
-  elseif filetype:match("neogit") or vim.bo.buftype ~= "" and bufname:match("neogit") then
-    vim.opt_local.number = false
-    vim.opt_local.relativenumber = false
-    vim.opt_local.statuscolumn = ""
-    vim.opt_local.cursorline = true
-    vim.opt_local.cursorlineopt = "both"
   elseif filetype == "gitcommit" then
     vim.opt_local.number = true
     vim.opt_local.relativenumber = true
@@ -38,7 +32,9 @@ local function sync_window_options()
 end
 
 vim.api.nvim_create_autocmd({ "FileType", "BufWinEnter", "WinEnter" }, {
-  callback = sync_window_options,
+  callback = function()
+    vim.schedule(sync_window_options)
+  end,
 })
 
 vim.opt.tabstop = 2       -- width a tab character displays as
@@ -49,6 +45,7 @@ vim.opt.expandtab = true  -- convert tabs to spaces
 vim.opt.clipboard = "unnamedplus" -- copies yank to clipboard
 
 vim.opt.autoindent = true
+vim.opt.smartindent = true
 
 vim.o.updatetime = 250
 
@@ -77,7 +74,7 @@ vim.api.nvim_set_hl(0, "DiagnosticUnderlineError", {
 -- Disables bold text
 local function disable_bold_highlights()
   for _, group in ipairs(vim.fn.getcompletion("", "highlight")) do
-    if group == "CursorLineNr" or group:match("^lualine_") then
+    if group:match("^lualine_") then
       goto continue
     end
 
@@ -100,7 +97,7 @@ vim.api.nvim_create_autocmd({ "ColorScheme", "VimEnter", "WinEnter", "BufEnter" 
   end,
 })
 
-vim.opt.scrolloff = 6
+vim.opt.scrolloff = 4
 
 local function listed_file_buffers_except(current_buf)
   local buffers = {}

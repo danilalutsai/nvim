@@ -5,6 +5,10 @@ local function hide_neo_tree_from_buffers()
 end
 
 local function set_neo_tree_highlights()
+  vim.api.nvim_set_hl(0, "Directory", { fg = "#c9c5e3" })
+  vim.api.nvim_set_hl(0, "NeoTreeDirectoryIcon", { fg = "#c4a7e7" })
+  vim.api.nvim_set_hl(0, "NeoTreeDirectoryName", { fg = "#c9c5e3" })
+  vim.api.nvim_set_hl(0, "NeoTreeFileIcon", { fg = "#c4a7e7" })
   vim.api.nvim_set_hl(0, "NeoTreeFileStats", { fg = "#bac2de" })
   vim.api.nvim_set_hl(0, "NeoTreeFileStatsHeader", { fg = "#cdd6f4", bold = true })
 end
@@ -34,12 +38,12 @@ return {
     end,
     keys = {
       {
-        "<leader>E",
+        "<leader>e",
         "<cmd>Neotree toggle<CR>",
         desc = "Toggle Neo-tree",
       },
       {
-        "<leader>e",
+        "<leader>E",
         function()
           local current_win = vim.api.nvim_get_current_win()
           local current_ft = vim.bo.filetype
@@ -60,9 +64,19 @@ return {
     },
     opts = {
       default_component_configs = {
+        icon = {
+          highlight = "NeoTreeFileIcon",
+        },
+        indent = {
+          indent_size = 1,
+          padding = 0,
+          with_markers = false,
+        },
         git_status = {
           symbols = {
-            unstaged = "●",
+            modified = "[+]",
+            unstaged = "[+]",
+            untracked = "[?]",
           },
         },
       },
@@ -78,6 +92,7 @@ return {
         mappings = {
           ["h"] = "close_node",
           ["l"] = "open",
+          ["r"] = "rename",
           ["v"] = "open_vsplit",
           ["V"] = "open_split",
         },

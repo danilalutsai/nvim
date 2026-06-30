@@ -20,9 +20,9 @@ vim.keymap.set("n", "<S-Tab>", "<<", { desc = "Un-indent line", noremap = true, 
 -- Re-undo
 vim.keymap.set("n", "U", "<C-r>", { desc = "Redo" })
 
--- Moves back or forward one word
-vim.keymap.set({ "n", "v" }, "<S-h>", "b", { desc = "Move back one word" })
-vim.keymap.set({ "n", "v" }, "<S-l>", "w", { desc = "Move forward one word" })
+-- -- Moves back or forward one word
+-- vim.keymap.set({ "n", "v" }, "<S-h>", "b", { desc = "Move back one word" })
+-- vim.keymap.set({ "n", "v" }, "<S-l>", "w", { desc = "Move forward one word" })
 
 -- Move half page down or up
 vim.keymap.set({ "n", "v" }, "<C-j>", "<C-d>", { desc = "Half page down", noremap = true, silent = true })
@@ -32,13 +32,13 @@ vim.keymap.set({ "n", "v" }, "<C-k>", "<C-u>", { desc = "Half page up", noremap 
 vim.keymap.set({ "n", "v" }, "<S-j>", "<C-f>", { desc = "Full page down", noremap = true, silent = true })
 vim.keymap.set({ "n", "v" }, "<S-k>", "<C-b>", { desc = "Full page up", noremap = true, silent = true })
 
--- Changes next or previous word
-vim.keymap.set("n", "c<S-h>", "cb", { desc = "Change word backward" })
-vim.keymap.set("n", "c<S-l>", "cw", { desc = "Change word forward" })
-
--- Deletes previous or next word
-vim.keymap.set("n", "d<S-h>", "db", { desc = "Delete word backward" })
-vim.keymap.set("n", "d<S-l>", "dw", { desc = "Delete word forward" })
+-- -- Changes next or previous word
+-- vim.keymap.set("n", "c<S-h>", "cb", { desc = "Change word backward" })
+-- vim.keymap.set("n", "c<S-l>", "cw", { desc = "Change word forward" })
+--
+-- -- Deletes previous or next word
+-- vim.keymap.set("n", "d<S-h>", "db", { desc = "Delete word backward" })
+-- vim.keymap.set("n", "d<S-l>", "dw", { desc = "Delete word forward" })
 
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR><Esc>")
 
